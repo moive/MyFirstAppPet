@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MyFirstApp.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -22,9 +23,34 @@ namespace MyFirstApp.Controllers
 
         public ActionResult Contact()
         {
-            ViewBag.Message = "Your contact page.";
+            ViewBag.Message = "Registar a pet for adoption";
 
             return View();
+        }
+
+        [HttpPost]
+        public ActionResult Contact(Pet pet)
+        {
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    DAL.Pet sdb = new DAL.Pet();
+                    if (sdb.AddPet(pet))
+                    {
+                        ViewBag.Message = "Thanks for registering: " + pet.Name;
+                        ModelState.Clear();
+                    }
+                }
+                return View();
+            }
+            catch (Exception)
+            {
+
+                ViewBag.Message = "Pet registration error";
+                return View();
+            }
+            
         }
     }
 }
