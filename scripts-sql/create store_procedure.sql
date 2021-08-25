@@ -10,4 +10,20 @@ begin
 	Insert into Pet values (@Name, @Age, @Description, @Email, @IsAdopted)
 End
 
+go
+
 select * from Pet
+
+go
+
+Create Procedure [dbo].[GetPet]
+as
+begin
+	select * from Pet
+End
+
+go
+
+Update Pet
+set isAdopted=1
+where id_pet=2
