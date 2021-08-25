@@ -52,5 +52,13 @@ namespace MyFirstApp.Controllers
             }
             
         }
+
+        public ActionResult Adopt()
+        {
+            ViewBag.Message = "Find your ideal pet.";
+            DAL.Pet sdb = new DAL.Pet();
+            List<Pet> pets = sdb.GetPets();
+            return View(pets);
+        }
     }
 }

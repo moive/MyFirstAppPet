@@ -38,5 +38,36 @@ namespace MyFirstApp.DAL
             else
                 return false;
         }
+
+        public List<Models.Pet> GetPets()
+        {
+            connection();
+            List<Models.Pet> pets = new List<Models.Pet>();
+            SqlCommand cmd = new SqlCommand("GetPet", con);
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            SqlDataAdapter sda = new SqlDataAdapter(cmd);
+            DataTable dt = new DataTable();
+
+            con.Open();
+            sda.Fill(dt);
+            con.Close();
+
+            foreach (DataRow dr in dt.Rows)
+            {
+                pets.Add(
+                    new Models.Pet
+                    {
+                        Name = Convert.ToString(dr["name"]),
+                        Age = Convert.ToString(dr["age"]),
+                        Description = Convert.ToString(dr["description"]),
+                        Email = Convert.ToString(dr["email"]),
+                        IsAdopted = Convert.ToBoolean(dr["isAdopted"])
+                    }
+                );
+            }
+
+            return pets;
+        }
     }
 }

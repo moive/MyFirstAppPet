@@ -1,0 +1,40 @@
+﻿@model IEnumerable<MyFirstApp.Models.Pet>
+@{
+    ViewBag.Title = "Adopt";
+}
+
+<h2>@ViewBag.Title.</h2>
+<h3>@ViewBag.Message</h3>
+<section class="content">
+    <div class="container">
+        <div class="row">
+            @foreach (var item in Model)
+            {
+                <div class="col-sm-4 col-md-4 col-lg-4">
+                    <div class="well">
+                        <h2 class="text-warning">@item.Name</h2>
+                        @if (item.IsAdopted)
+                        {
+                            <p><span class="label label-default">Adopted</span></p>
+                        }
+                        else
+                        {
+                            <p><span class="label label-success">Available</span></p>
+                        }
+                        <ul>
+                            <li>Age: @item.Age</li>
+                            <li>Email: @item.Email</li>
+                        </ul>
+                        <p><strong>Description:</strong></p>
+                        <p>@item.Description</p>
+                        @if (!item.IsAdopted)
+                        {
+                            <p><a class="btn btn-success btn-sm" href="#">Adopt!</a></p>
+                        }
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</section>
+
